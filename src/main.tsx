@@ -14,8 +14,7 @@ ReactDOM.render(
         <App />
       </Box>
       <Box sx={{ margin: 1, color: '#aaa' }}>
-        <div>by Mo Valipour — <a href='https://twitter.com/mvalipour'>@mvalipour</a></div>
-        <div>special thanks to: Farzad Yousefzadeh — <a href='https://twitter.com/farzad_yz'>@farzad_yz</a></div>
+        <div>open source client: <a href='https://github.com/hakem-club/courtpiece-web'>@hakem-club/courtpiece-web</a></div>
       </Box>
     </Container>
   </React.StrictMode>,
