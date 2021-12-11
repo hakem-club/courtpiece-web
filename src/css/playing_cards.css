@@ -1,0 +1,245 @@
+.pc {
+  display: inline-block;
+}
+
+.pc:after {
+  content: "\1F0A0";
+  font-size: 7rem;
+  display: block;
+  margin-top: -1.3rem;
+  height: 5.8rem;
+}
+
+.pc.no-null {
+  color: #aaa;
+}
+.pc.disabled:after {
+  filter: opacity(0.5);
+}
+.pc.holder:after {
+  content: "";
+  border: dashed 1px;
+  top: 0.02em;
+  left: 0.02em;
+  right: 0.08em;
+  bottom: 0.07em;
+  position: absolute;
+  border-radius: 0.05em;
+}
+
+/* suits */
+.suite-shape {
+  border-radius: 2rem;
+  margin: 0 0.5rem;
+  font-size: 1.5rem;
+  display: inline-block;
+  width: 2rem;
+  text-align: center;
+}
+.suite-shape-undefined:after {
+  content: "\22A1";
+}
+.suite-shape-0:after {
+  content: "\2665";
+  color: indianred;
+}
+.suite-shape-1:after {
+  content: "\2660";
+}
+.suite-shape-2:after {
+  content: "\2666";
+  color: indianred;
+}
+.suite-shape-3:after {
+  content: "\2663";
+}
+
+/* hearts */
+.pc.suite-0.rank-0:after {
+  content: "\1F0B2";
+  color: indianred;
+}
+.pc.suite-0.rank-1:after {
+  content: "\1F0B3";
+  color: indianred;
+}
+.pc.suite-0.rank-2:after {
+  content: "\1F0B4";
+  color: indianred;
+}
+.pc.suite-0.rank-3:after {
+  content: "\1F0B5";
+  color: indianred;
+}
+.pc.suite-0.rank-4:after {
+  content: "\1F0B6";
+  color: indianred;
+}
+.pc.suite-0.rank-5:after {
+  content: "\1F0B7";
+  color: indianred;
+}
+.pc.suite-0.rank-6:after {
+  content: "\1F0B8";
+  color: indianred;
+}
+.pc.suite-0.rank-7:after {
+  content: "\1F0B9";
+  color: indianred;
+}
+.pc.suite-0.rank-8:after {
+  content: "\1F0Ba";
+  color: indianred;
+}
+.pc.suite-0.rank-9:after {
+  content: "\1F0Bb";
+  color: indianred;
+}
+.pc.suite-0.rank-10:after {
+  content: "\1F0Bd";
+  color: indianred;
+}
+.pc.suite-0.rank-11:after {
+  content: "\1F0Be";
+  color: indianred;
+}
+.pc.suite-0.rank-12:after {
+  content: "\1F0B1";
+  color: indianred;
+}
+
+/* spades */
+.pc.suite-1.rank-0:after {
+  content: "\1F0A2";
+}
+.pc.suite-1.rank-1:after {
+  content: "\1F0A3";
+}
+.pc.suite-1.rank-2:after {
+  content: "\1F0A4";
+}
+.pc.suite-1.rank-3:after {
+  content: "\1F0A5";
+}
+.pc.suite-1.rank-4:after {
+  content: "\1F0A6";
+}
+.pc.suite-1.rank-5:after {
+  content: "\1F0A7";
+}
+.pc.suite-1.rank-6:after {
+  content: "\1F0A8";
+}
+.pc.suite-1.rank-7:after {
+  content: "\1F0A9";
+}
+.pc.suite-1.rank-8:after {
+  content: "\1F0Aa";
+}
+.pc.suite-1.rank-9:after {
+  content: "\1F0Ab";
+}
+.pc.suite-1.rank-10:after {
+  content: "\1F0Ad";
+}
+.pc.suite-1.rank-11:after {
+  content: "\1F0Ae";
+}
+.pc.suite-1.rank-12:after {
+  content: "\1F0A1";
+}
+
+/* diamonds */
+.pc.suite-2.rank-0:after {
+  content: "\1F0C2";
+  color: indianred;
+}
+.pc.suite-2.rank-1:after {
+  content: "\1F0C3";
+  color: indianred;
+}
+.pc.suite-2.rank-2:after {
+  content: "\1F0C4";
+  color: indianred;
+}
+.pc.suite-2.rank-3:after {
+  content: "\1F0C5";
+  color: indianred;
+}
+.pc.suite-2.rank-4:after {
+  content: "\1F0C6";
+  color: indianred;
+}
+.pc.suite-2.rank-5:after {
+  content: "\1F0C7";
+  color: indianred;
+}
+.pc.suite-2.rank-6:after {
+  content: "\1F0C8";
+  color: indianred;
+}
+.pc.suite-2.rank-7:after {
+  content: "\1F0C9";
+  color: indianred;
+}
+.pc.suite-2.rank-8:after {
+  content: "\1F0Ca";
+  color: indianred;
+}
+.pc.suite-2.rank-9:after {
+  content: "\1F0Cb";
+  color: indianred;
+}
+.pc.suite-2.rank-10:after {
+  content: "\1F0Cd";
+  color: indianred;
+}
+.pc.suite-2.rank-11:after {
+  content: "\1F0Ce";
+  color: indianred;
+}
+.pc.suite-2.rank-12:after {
+  content: "\1F0C1";
+  color: indianred;
+}
+
+/* clubs */
+.pc.suite-3.rank-0:after {
+  content: "\1F0D2";
+}
+.pc.suite-3.rank-1:after {
+  content: "\1F0D3";
+}
+.pc.suite-3.rank-2:after {
+  content: "\1F0D4";
+}
+.pc.suite-3.rank-3:after {
+  content: "\1F0D5";
+}
+.pc.suite-3.rank-4:after {
+  content: "\1F0D6";
+}
+.pc.suite-3.rank-5:after {
+  content: "\1F0D7";
+}
+.pc.suite-3.rank-6:after {
+  content: "\1F0D8";
+}
+.pc.suite-3.rank-7:after {
+  content: "\1F0D9";
+}
+.pc.suite-3.rank-8:after {
+  content: "\1F0Da";
+}
+.pc.suite-3.rank-9:after {
+  content: "\1F0Db";
+}
+.pc.suite-3.rank-10:after {
+  content: "\1F0Dd";
+}
+.pc.suite-3.rank-11:after {
+  content: "\1F0De";
+}
+.pc.suite-3.rank-12:after {
+  content: "\1F0D1";
+}
