@@ -24,7 +24,7 @@ export const HomeScreen: React.FC = () => {
 
   useEffect(() => {
     if (player_id != null && apiState.status === "pending") {
-      fetch(`/api/game?player_id=${player_id}&name=${selectedName}`, { method: "POST" })
+      fetch(`${import.meta.env.VITE_SERVER_DOMAIN}/api/game?player_id=${player_id}&name=${selectedName}`, { method: "POST" })
         .then((res) => res.json())
         .then(({ game_id }) => {
           setApiState({ status: "success", gameId: game_id });

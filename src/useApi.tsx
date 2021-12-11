@@ -28,7 +28,7 @@ export default function useApi<T>(game_id: TGameID, action: TApiAction | null) {
 
   useEffect(() => {
     if (pending) {
-      fetch(`/api/game/${game_id}/${action ?? ''}?${new URLSearchParams({ ...params, player_id }).toString()}`, { method: action == null ? "GET" : "POST" })
+      fetch(`${import.meta.env.VITE_SERVER_DOMAIN}/api/game/${game_id}/${action ?? ''}?${new URLSearchParams({ ...params, player_id }).toString()}`, { method: action == null ? "GET" : "POST" })
         .then(async (res) => {
           if (res.ok) {
             setState({ data: await res.json()});
