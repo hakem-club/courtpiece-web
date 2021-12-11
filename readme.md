@@ -5,7 +5,7 @@ This is the open-source web app for the website [Hakem.club](https://www.hakem.c
 ## Development
 
 ```
-npm run build && vite
+npm run build && npm run vite
 ```
 
 ## Contribute
