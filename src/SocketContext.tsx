@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import socketIOClient from "socket.io-client";
+import io from "socket.io-client";
 import { SOCKET_IO_UPDATE_EVENT } from "../common/constants";
 
 const useGameUpdate = (game_id: string) => {
@@ -8,7 +8,7 @@ const useGameUpdate = (game_id: string) => {
 
   useEffect(() => {
     // Creates a WebSocket connection
-    const socket = socketIOClient({query: { game_id }});
+    const socket = io(import.meta.env.VITE_SERVER_DOMAIN as string, {query: { game_id }});
 
     // listen to update events
     socket.on(SOCKET_IO_UPDATE_EVENT, () => setUpdateToken());
