@@ -5,6 +5,7 @@ import { useHistory } from "react-router";
 import { isNameValid } from "../../common/utils";
 import CenterContainer from "../components/CenterContainer";
 import { usePlayer } from "../GameContext";
+import SmartToyIcon from '@mui/icons-material/SmartToy';
 
 export const HomeScreen: React.FC = () => {
   const player_id = usePlayer();
@@ -16,6 +17,7 @@ export const HomeScreen: React.FC = () => {
   const [cookies, setCookie] = useCookies(['player_name']);
   const defaultName = cookies.player_name ?? '';
   const [selectedName, setSelectedName] = useState(defaultName);
+  const [bots, setBots] = useState(0);
   const [apiState, setApiState] = useState<{
     status: "idle" | "pending" | "success" | "error";
     gameId?: string;
@@ -24,7 +26,8 @@ export const HomeScreen: React.FC = () => {
 
   useEffect(() => {
     if (player_id != null && apiState.status === "pending") {
-      fetch(`${import.meta.env.VITE_SERVER_DOMAIN}/api/game?player_id=${player_id}&name=${selectedName}`, { method: "POST" })
+      setCookie('player_name', selectedName, { path: '/', maxAge: 31622400 });
+      fetch(`${import.meta.env.VITE_SERVER_DOMAIN}/api/game?player_id=${player_id}&name=${selectedName}${bots > 0 ? '&bots=1' : ''}`, { method: "POST" })
         .then((res) => res.json())
         .then(({ game_id }) => {
           setApiState({ status: "success", gameId: game_id });
@@ -59,12 +62,14 @@ export const HomeScreen: React.FC = () => {
         />
       </Box>
       <Box sx={{ mt: 4 }}>
-        <Button variant="contained" onClick={() => {
-            setApiState({ status: "pending" });
-            setCookie('player_name', selectedName, { path: '/', maxAge: 31622400 });
-          }}
+        <Button variant="contained" onClick={() => setApiState({ status: "pending" })}
           disabled={apiState.status === "pending" || invalid_form }>Start a New Game!</Button>
-        </Box>
+        <Button variant="outlined" sx={{ mx: 2 }} startIcon={<SmartToyIcon />} onClick={() => {
+          setBots(1);
+          setApiState({ status: "pending" });
+        }}
+          disabled={apiState.status === "pending" || invalid_form }>Play with [rather stupid] Bots!</Button>
+      </Box>
     </CenterContainer>
   );
 };

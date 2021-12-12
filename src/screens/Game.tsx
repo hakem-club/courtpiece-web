@@ -54,7 +54,7 @@ const InPlayView: React.FC = () => {
         {/* PLAYERS AND TEAMS */}
         <Grid container spacing={2} textAlign='center' sx={{ pb: 8 }}>
           <Grid item xs={12} md={8}>
-            {[0, 1, 2, 3].map(index => <Player name={game.players[index]} index={index as PlayerIndex} {...playerProps} />)}
+            {[0, 1, 2, 3].map(index => <Player key={index} name={game.players[index]} index={index as PlayerIndex} {...playerProps} />)}
           </Grid>
           <Grid item xs={12} md={4}>
             <Player name="Team A" index={0 as PlayerIndex} score={game.wins[0]} />
@@ -67,7 +67,7 @@ const InPlayView: React.FC = () => {
 
         {/* TRUMP SUITE */}
         <Box sx={{ textAlign: 'center', mt: -1.7 }}>
-          {[0, 1, 2, 3].map(suite => <CardSuite suite={suite as PlayingCardSuite} highlighted={game.trump_suite} />)}
+          {[0, 1, 2, 3].map(suite => <CardSuite key={suite} suite={suite as PlayingCardSuite} highlighted={game.trump_suite} />)}
         </Box>
 
         {/* PLAYER CARDS */}
@@ -82,7 +82,7 @@ const InPlayView: React.FC = () => {
 
         {/* FLOOR CARDS */}
         {game.game_status !== 'in_play' ? null : <Box sx={{ textAlign: 'center', py: 2 }}>
-          {[0, 1, 2, 3].map(ix => <Box display="inline-block">
+          {[0, 1, 2, 3].map(ix => <Box key={ix} display="inline-block">
             <Box flexDirection="row">
               <Box>
                 <Player name={game.players[(who_started_this_round + ix) % 4]} index={(who_started_this_round + ix) % 4 as PlayerIndex} {...playerProps} />
@@ -107,8 +107,8 @@ const InPlayView: React.FC = () => {
         {game.tricks.length < 1 ? null : <>
           <Divider />
           <Box sx={{ textAlign: 'center', py: 2 }}>
-            {game.tricks.map(({ starting_player, winner, cards }) => <Box sx={{ mb: 2 }}>
-              {cards.map((card, ix) => <Box display="inline-block">
+            {game.tricks.map(({ starting_player, winner, cards }, ix) => <Box key={ix} sx={{ mb: 2 }}>
+              {cards.map((card, ix) => <Box key={ix} display="inline-block">
                 <Box flexDirection="row">
                   <Box>
                     <Player name={game.players[(starting_player + ix) % 4]} index={(starting_player + ix) % 4 as PlayerIndex} highlighted={winner} lead={game.whos_lead} />
@@ -159,7 +159,7 @@ const AwaitingPlayersView: React.FC = () => {
   return (
     <CenterContainer>
       <Box textAlign='center' sx={{ mb: 4 }}>
-        {players.map((name, ix) => <Player name={name} index={ix as PlayerIndex} />)}
+        {players.map((name, ix) => <Player key={ix} name={name} index={ix as PlayerIndex} />)}
       </Box>
       {your_index < 0 ? <JoinGameView /> : <AwaitingMorePlayersView />}
     </CenterContainer>
@@ -226,7 +226,7 @@ const ChooseTrumpSuiteView: React.FC = () => {
         <Alert severity="info">Please choose a trump suite:</Alert>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
-        {[0, 1, 2, 3].map(suite => (<SelectableItem
+        {[0, 1, 2, 3].map(suite => (<SelectableItem key={suite}
           onSelect={() => api.send({ trump_suite: suite })}
           disabled={api.pending}
         >
