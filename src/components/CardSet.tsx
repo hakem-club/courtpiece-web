@@ -14,7 +14,7 @@ export default function CardSet(props: {
       <Box sx={{whiteSpace: 'nowrap', overflowX: 'auto', pb: onSelectFactory == null ? 0 : 2  }}>
         {(sort ? cards.sort((a, b) => a - b) : cards).map(card => {
           const onSelect = onSelectFactory == null ? null : onSelectFactory(card);
-          return <Card card={card} {...(onSelect == null ? {} : {onSelect})} />;
+          return <Card key={card} card={card} {...(onSelect == null ? {} : {onSelect})} />;
         })}
       </Box>
     );
