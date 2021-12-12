@@ -4,5 +4,17 @@
   "open-source-client": "open source client",
   "start-new-game": "Start a New Game!",
   "pick-a-name": "Pick a name...",
-  "name-field-helper": "Only characters and numbers, 3 to 8 characters long"
+  "name-field-helper": "Only characters and numbers, 3 to 8 characters long",
+  "error-in-api-response": "Oops! Something went wrong! Error Code:",
+  "to-choose-trump-suite": "to choose trump suite...",
+  "please-choose-a-trump-suite": "Please choose a trump suite...",
+  "share-this-link-with-your-friends": "Share this link with your friends",
+  "waiting-for": "Waiting for",
+  "more-player": "more player",
+  "to-join": "to join",
+  "join-this-game": "Join This Game!",
+  "continue-to-next-game": "Continue to Next Game!",
+  "admin-of-this-game-can-create-the-next-game": "Admin of this game can create the next game.",
+  "you-are-the-admin-and-you-can-create-the-next-game": "You're the admin and you can create the next game!",
+  "create-the-next-game": "Create the Next Game!"
 }
