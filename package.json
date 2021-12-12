@@ -14,9 +14,11 @@
     "@emotion/styled": "^11.6.0",
     "@mui/icons-material": "^5.2.0",
     "@mui/material": "^5.2.2",
+    "i18next": "^21.6.0",
     "react": "^17.0.0",
     "react-cookie": "^4.1.1",
     "react-dom": "^17.0.0",
+    "react-i18next": "^11.15.0",
     "react-router-dom": "^5.3.0",
     "socket.io-client": "^4.4.0",
     "uuid": "^8.3.2"

@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./css/index.css";
 import App from "./App";
+import './i18n';
 import { Box, Container } from "@mui/material";
 
 ReactDOM.render(
