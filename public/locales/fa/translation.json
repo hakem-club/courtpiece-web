@@ -1,0 +1,17 @@
+{
+  "start-new-game": "!یک بازی جدید شروع کنید",
+  "pick-a-name": "یک نام انتخاب کنید",
+  "name-field-helper": "فقط از کاراکترها و اعداد استفاده کنید،طول نام 3 تا 8 کاراکتر باشد",
+  "error-in-api-response": ":اوووه!یک اتفاق غیرمنتظره افتاد",
+  "waiting-for": "در انتظار",
+  "to-choose-trump-suite": "برای انتخاب حاکم",
+  "please-choose-a-trump-suite": "...لطفا حکم را انتخاب کنید",
+  "share-this-link-with-your-friends": "این لینک را با دوستان خود به اشتراک بگذارید",
+  "more-player": "بازیکن بیشتر",
+  "to-join": "برای پیوستن",
+  "join-this-game": "!به این بازی بپیوندید",
+  "continue-to-next-game": "رفتن به بازی بعد",
+  "admin-of-this-game-can-create-the-next-game": "ادمین این بازی می تواند بازی بعدی را  بسازد",
+  "you-are-the-admin-and-you-can-create-the-next-game": "شما ادمین هستید و میتوانید بازی بعدی را بسازید",
+  "create-the-next-game": "بازی بعدی را بسازید"
+}
