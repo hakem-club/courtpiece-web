@@ -1,20 +1,22 @@
 import { Box, Button, TextField } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
+import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router";
 import { isNameValid } from "../../common/utils";
 import CenterContainer from "../components/CenterContainer";
 import { usePlayer } from "../GameContext";
 
 export const HomeScreen: React.FC = () => {
+  const { t } = useTranslation();
   const player_id = usePlayer();
   const history = useHistory();
   const changeRoute = useCallback((gameId: string) => {
     history.push(gameId);
   }, []);
 
-  const [cookies, setCookie] = useCookies(['player_name']);
-  const defaultName = cookies.player_name ?? '';
+  const [cookies, setCookie] = useCookies(["player_name"]);
+  const defaultName = cookies.player_name ?? "";
   const [selectedName, setSelectedName] = useState(defaultName);
   const [apiState, setApiState] = useState<{
     status: "idle" | "pending" | "success" | "error";
@@ -24,7 +26,12 @@ export const HomeScreen: React.FC = () => {
 
   useEffect(() => {
     if (player_id != null && apiState.status === "pending") {
-      fetch(`${import.meta.env.VITE_SERVER_DOMAIN}/api/game?player_id=${player_id}&name=${selectedName}`, { method: "POST" })
+      fetch(
+        `${
+          import.meta.env.VITE_SERVER_DOMAIN
+        }/api/game?player_id=${player_id}&name=${selectedName}`,
+        { method: "POST" }
+      )
         .then((res) => res.json())
         .then(({ game_id }) => {
           setApiState({ status: "success", gameId: game_id });
@@ -51,20 +58,28 @@ export const HomeScreen: React.FC = () => {
       <Box>
         <TextField
           error={selectedName.length > 0 && invalid_form}
-          helperText="Only characters and numbers, 3 to 8 characters long"
+          helperText={t("name-field-helper")}
           defaultValue={defaultName}
-          label="Pick a name..."
-          sx={{ width: '100%' }}
+          label={t("pick-a-name")}
+          sx={{ width: "100%" }}
           onChange={({ target }) => setSelectedName(target.value)}
         />
       </Box>
       <Box sx={{ mt: 4 }}>
-        <Button variant="contained" onClick={() => {
+        <Button
+          variant="contained"
+          onClick={() => {
             setApiState({ status: "pending" });
-            setCookie('player_name', selectedName, { path: '/', maxAge: 31622400 });
+            setCookie("player_name", selectedName, {
+              path: "/",
+              maxAge: 31622400,
+            });
           }}
-          disabled={apiState.status === "pending" || invalid_form }>Start a New Game!</Button>
-        </Box>
+          disabled={apiState.status === "pending" || invalid_form}
+        >
+          {t("start-new-game")}
+        </Button>
+      </Box>
     </CenterContainer>
   );
 };

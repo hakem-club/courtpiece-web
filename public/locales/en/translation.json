@@ -1,5 +1,8 @@
 {
   "en": "En",
   "fa": "Fa",
-  "open-source-client": "open source client"
+  "open-source-client": "open source client",
+  "start-new-game": "Start a New Game!",
+  "pick-a-name": "Pick a name...",
+  "name-field-helper": "Only characters and numbers, 3 to 8 characters long"
 }

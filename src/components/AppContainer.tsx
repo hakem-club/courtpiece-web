@@ -16,17 +16,19 @@ const AppContainer: FC = ({ children }) => {
         <a href="/">
           <img src="/logo.svg" alt="Hakem.club" style={{ height: "1.5rem" }} />
         </a>
-        <Select
-          size="small"
-          style={{ marginLeft: "1rem", height: "1.5rem" }}
-          defaultValue="en"
-          onChange={(e) => {
-            changeLanguage(e.target.value);
-          }}
-        >
-          <MenuItem value={"en"}>{t('en')}</MenuItem>
-          <MenuItem value={"fa"}>{t('fa')}</MenuItem>
-        </Select>
+        {i18n.language && (
+          <Select
+            size="small"
+            style={{ marginLeft: "1rem", height: "1.5rem" }}
+            defaultValue={i18n.language}
+            onChange={(e) => {
+              changeLanguage(e.target.value);
+            }}
+          >
+            <MenuItem value="en">{t("en")}</MenuItem>
+            <MenuItem value="fa">{t("fa")}</MenuItem>
+          </Select>
+        )}
       </Box>
       <Box
         sx={{
