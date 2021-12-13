@@ -1,4 +1,4 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Badge, Box, Button, TextField } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useHistory } from "react-router";
@@ -17,7 +17,7 @@ export const HomeScreen: React.FC = () => {
   const [cookies, setCookie] = useCookies(['player_name']);
   const defaultName = cookies.player_name ?? '';
   const [selectedName, setSelectedName] = useState(defaultName);
-  const [bots, setBots] = useState(0);
+  const [bots, setBots] = useState<string | null>(null);
   const [apiState, setApiState] = useState<{
     status: "idle" | "pending" | "success" | "error";
     gameId?: string;
@@ -27,7 +27,7 @@ export const HomeScreen: React.FC = () => {
   useEffect(() => {
     if (player_id != null && apiState.status === "pending") {
       setCookie('player_name', selectedName, { path: '/', maxAge: 31622400 });
-      fetch(`${import.meta.env.VITE_SERVER_DOMAIN}/api/game?player_id=${player_id}&name=${selectedName}${bots > 0 ? '&bots=1' : ''}`, { method: "POST" })
+      fetch(`${import.meta.env.VITE_SERVER_DOMAIN}/api/game?player_id=${player_id}&name=${selectedName}${bots != null ? `&bots=${bots}` : ''}`, { method: "POST" })
         .then((res) => res.json())
         .then(({ game_id }) => {
           setApiState({ status: "success", gameId: game_id });
@@ -52,23 +52,29 @@ export const HomeScreen: React.FC = () => {
   return (
     <CenterContainer>
       <Box>
-        <TextField
-          error={selectedName.length > 0 && invalid_form}
-          helperText="Only characters and numbers, 3 to 8 characters long"
-          defaultValue={defaultName}
-          label="Pick a name..."
-          sx={{ width: '100%' }}
-          onChange={({ target }) => setSelectedName(target.value)}
-        />
-      </Box>
-      <Box sx={{ mt: 4 }}>
-        <Button variant="contained" onClick={() => setApiState({ status: "pending" })}
-          disabled={apiState.status === "pending" || invalid_form }>Start a New Game!</Button>
-        <Button variant="outlined" sx={{ mx: 2 }} startIcon={<SmartToyIcon />} onClick={() => {
-          setBots(1);
-          setApiState({ status: "pending" });
-        }}
-          disabled={apiState.status === "pending" || invalid_form }>Play with [rather stupid] Bots!</Button>
+        <Box>
+          <TextField
+            error={selectedName.length > 0 && invalid_form}
+            helperText="Only characters and numbers, 3 to 8 characters long"
+            defaultValue={defaultName}
+            label="Pick a name..."
+            sx={{ width: '100%' }}
+            onChange={({ target }) => setSelectedName(target.value)}
+          />
+        </Box>
+        <Box sx={{ my: 2 }}>
+          <Button variant="contained" onClick={() => setApiState({ status: "pending" })}
+            disabled={apiState.status === "pending" || invalid_form}>Start a New Game!</Button>
+        </Box>
+        {['random-bot', 'highcard-bot'].map(bot => <Box key={bot} sx={{ my: 4 }}>
+          <Badge color="info" badgeContent={bot}>
+            <Button variant="outlined" startIcon={<SmartToyIcon />} onClick={() => {
+              setBots(bot);
+              setApiState({ status: "pending" });
+            }}
+              disabled={apiState.status === "pending" || invalid_form}>Play against Bots!</Button>
+          </Badge>
+        </Box>)}
       </Box>
     </CenterContainer>
   );
