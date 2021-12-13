@@ -64,7 +64,7 @@ export const HomeScreen: React.FC = () => {
         </Box>
         <Box sx={{ my: 2 }}>
           <Button variant="contained" onClick={() => setApiState({ status: "pending" })}
-            disabled={apiState.status === "pending" || invalid_form}>Start a New Game!</Button>
+            disabled={apiState.status === "pending" || invalid_form}>Play with your friends!</Button>
         </Box>
         {['random-bot', 'highcard-bot'].map(bot => <Box key={bot} sx={{ my: 4 }}>
           <Badge color="info" badgeContent={bot}>
