@@ -275,7 +275,7 @@ export const GameScreen: React.FC = () => {
   }
 
   return (<>
-    <LinearProgress sx={{ opacity: api.pending ? 1 : 0 }} />
+    <LinearProgress sx={{ opacity: api.pending ? 1 : 0, mb: -0.5 }} />
     {api.data == null ? null : <GameProvider value={{ ...api.data, game_id: gameId }}>
       <GameView />
     </GameProvider>}
