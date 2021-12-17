@@ -2,7 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./css/index.css";
 import App from "./App";
-import { Box, Container } from "@mui/material";
+import { Box, Container, Grid } from "@mui/material";
+import { PlayerIndex } from "../common/types";
+import Player from "./components/Player";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -13,9 +15,14 @@ ReactDOM.render(
       <Box sx={{ boxShadow: '0 3px 10px rgb(0 0 0 / 5%)', backgroundColor: 'white' }}>
         <App />
       </Box>
-      <Box sx={{ margin: 1, color: '#aaa' }}>
-        <div>open source client: <a href='https://github.com/hakem-club/courtpiece-web'>@hakem-club/courtpiece-web</a></div>
-      </Box>
+      <Grid container spacing={2} sx={{ p: 1, color: '#aaa' }}>
+        <Grid item xs={12} md={6}>
+          open source client: <a href='https://github.com/hakem-club/courtpiece-web'>@hakem-club/courtpiece-web</a>
+        </Grid>
+        <Grid item xs={12} md={6} textAlign='right'>
+        <a href='/test-bot'>Test Your Bot!</a>
+        </Grid>
+      </Grid>
     </Container>
   </React.StrictMode>,
   document.getElementById("root")

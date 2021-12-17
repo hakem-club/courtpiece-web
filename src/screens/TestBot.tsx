@@ -1,22 +1,30 @@
 import { Badge, Box, Button, TextField } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
 import { useHistory } from "react-router";
-import { isNameValid } from "../../common/utils";
 import CenterContainer from "../components/CenterContainer";
 import { usePlayer } from "../GameContext";
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 
-export const HomeScreen: React.FC = () => {
+function validURL(value: string): boolean {
+  var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+    '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+    '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+    '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+  return !!pattern.test(value);
+}
+
+
+export const TestBotScreen: React.FC = () => {
   const player_id = usePlayer();
   const history = useHistory();
   const changeRoute = useCallback((gameId: string) => {
     history.push(gameId);
   }, []);
 
-  const [cookies, setCookie] = useCookies(['player_name']);
-  const defaultName = cookies.player_name ?? '';
-  const [selectedName, setSelectedName] = useState(defaultName);
+  const defaultBotApiHost = "https://hakemclub-bot-random.herokuapp.com/bots/highcard-bot";
+  const [botApiHost, setBotApiHost] = useState(defaultBotApiHost);
   const [bot_id, setBotId] = useState<string | null>(null);
   const [apiState, setApiState] = useState<{
     status: "idle" | "pending" | "success" | "error";
@@ -26,8 +34,7 @@ export const HomeScreen: React.FC = () => {
 
   useEffect(() => {
     if (player_id != null && apiState.status === "pending") {
-      setCookie('player_name', selectedName, { path: '/', maxAge: 31622400 });
-      fetch(`${import.meta.env.VITE_SERVER_DOMAIN}/api/game?player_id=${player_id}&name=${selectedName}${bot_id != null ? `&bot_id=${bot_id}` : ''}`, { method: "POST" })
+      fetch(`${import.meta.env.VITE_SERVER_DOMAIN}/api/game?player_id=${player_id}&bot_host=${botApiHost}&bot_id=${bot_id}`, { method: "POST" })
         .then((res) => res.json())
         .then(({ game_id }) => {
           setApiState({ status: "success", gameId: game_id });
@@ -47,24 +54,19 @@ export const HomeScreen: React.FC = () => {
     }
   }, [apiState.status]);
 
-  const invalid_form = !isNameValid(selectedName);
+  const invalid_form = !validURL(botApiHost);
 
   return (
     <CenterContainer>
       <Box>
         <Box>
           <TextField
-            error={selectedName.length > 0 && invalid_form}
-            helperText="Only characters and numbers, 3 to 8 characters long"
-            defaultValue={defaultName}
-            label="Pick a name..."
+            error={botApiHost.length > 0 && invalid_form}
+            label="Enter your bots API host"
+            defaultValue={defaultBotApiHost}
             sx={{ width: '100%' }}
-            onChange={({ target }) => setSelectedName(target.value)}
+            onChange={({ target }) => setBotApiHost(target.value)}
           />
-        </Box>
-        <Box sx={{ my: 2 }}>
-          <Button variant="contained" onClick={() => setApiState({ status: "pending" })}
-            disabled={apiState.status === "pending" || invalid_form}>Play with your friends!</Button>
         </Box>
         {['random-bot', 'highcard-bot'].map(bot => <Box key={bot} sx={{ my: 4 }}>
           <Badge color="info" badgeContent={bot}>
@@ -72,7 +74,7 @@ export const HomeScreen: React.FC = () => {
               setBotId(bot);
               setApiState({ status: "pending" });
             }}
-              disabled={apiState.status === "pending" || invalid_form}>Play against Bots!</Button>
+              disabled={apiState.status === "pending" || invalid_form}>Play against other Bots!</Button>
           </Badge>
         </Box>)}
       </Box>
