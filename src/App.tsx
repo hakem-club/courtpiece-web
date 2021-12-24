@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { useCookies } from 'react-cookie'
 import { v4 as uuid } from "uuid";
 import { TestBotScreen } from "./screens/TestBot";
+import { MatchScreen } from "./screens/Match";
 
 export default function App() {
   const [cookies, setCookie] = useCookies(['player_id']);
@@ -32,6 +33,7 @@ export default function App() {
           <Route path="/" exact component={HomeScreen} />
           <Route path="/test-bot" exact component={TestBotScreen} />
           <Route path="/game/:gameId" component={GameScreen} />
+          <Route path="/match/:matchId" component={MatchScreen} />
         </Switch>
       </BrowserRouter>
     </PlayerProvider>
