@@ -1,5 +1,6 @@
 export type TPlayerID = string;
 export type TGameID = string;
+export type TMatchID = string;
 export type PlayingCardSuite = 0 | 1 | 2 | 3;
 export type PlayingCardRank =
   | 0
@@ -127,3 +128,21 @@ export type TTrick = {
   starting_player: PlayerIndex,
   winner: PlayerIndex;
 };
+
+type TMatchFinishedGameState = {
+  id: TGameID,
+  winner_team: TeamIndex,
+  wins: [number, number],
+  scoreline: [number, number],
+};
+
+type TMatchCurrentGameState = {
+  id: TGameID,
+  status: TGameStatus,
+  wins: [number, number]
+};
+
+export type TMatchData = {
+  finished_games: TMatchFinishedGameState[],
+  current_game?: TMatchCurrentGameState,
+}

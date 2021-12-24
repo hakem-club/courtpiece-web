@@ -14,7 +14,7 @@ import BoltIcon from '@mui/icons-material/Bolt';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useCookies } from "react-cookie";
 import SelectableItem from "../components/SelectableItem";
-import useApi from "../useApi";
+import { useGameApi } from "../useApi";
 
 interface RouteParams {
   gameId: string;
@@ -23,7 +23,7 @@ interface RouteParams {
 
 const InPlayView: React.FC = () => {
   const game = useGame();
-  const api = useApi(game.game_id, 'play');
+  const api = useGameApi(game.game_id, 'play');
 
   const canPlayCard = function (card: PlayingCard): boolean {
     if (game.game_status !== 'in_play') {
@@ -130,7 +130,7 @@ const InPlayView: React.FC = () => {
 
 const ResetGamePane: React.FC = () => {
   const game = useGame();
-  const api = useApi(game.game_id, 'reset');
+  const api = useGameApi(game.game_id, 'reset');
 
   if (game.next_game_id != null) {
     return <Button
@@ -171,7 +171,7 @@ const JoinGameView: React.FC = () => {
   const defaultName = cookies.player_name ?? '';
   const [selectedName, setSelectedName] = useState(defaultName);
   const game = useGame();
-  const api = useApi(game.game_id, 'join');
+  const api = useGameApi(game.game_id, 'join');
 
   const invalid_form = !isNameValid(selectedName);
 
@@ -218,7 +218,7 @@ const AwaitingMorePlayersView: React.FC = () => {
 
 const ChooseTrumpSuiteView: React.FC = () => {
   const game = useGame();
-  const api = useApi(game.game_id, 'choose_trump_suite');
+  const api = useGameApi(game.game_id, 'choose_trump_suite');
 
   return (
     <Box sx={{ m: 4 }}>
@@ -264,7 +264,7 @@ const GameView: React.FC = () => {
 export const GameScreen: React.FC = () => {
   const { gameId } = useParams<RouteParams>();
   const { updateToken } = useGameUpdate(gameId);
-  const api = useApi<TGameData>(gameId, null);
+  const api = useGameApi<TGameData>(gameId, null);
 
   useEffect(() => {
     api.send();
