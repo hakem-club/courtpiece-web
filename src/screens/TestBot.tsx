@@ -31,8 +31,6 @@ export const BotSelector: React.FC<TBotSelectorProps> = (props: TBotSelectorProp
   return (<FormControl fullWidth sx={{ my: 2 }}>
     <InputLabel id="demo-simple-select-label">{props.label}</InputLabel>
     <Select
-      labelId="demo-simple-select-label"
-      id="demo-simple-select"
       value={bot.id}
       label="Age"
       onChange={({target}) => setBot({ id: target.value })}
@@ -64,12 +62,13 @@ export const TestBotScreen: React.FC = () => {
 
   const [bot1, setBot1] = useState<TBot>({ id: KNOWN_BOT_IDS[0] });
   const [bot2, setBot2] = useState<TBot>({ id: KNOWN_BOT_IDS[0] });
+  const [winner_min_score, setWinnerMinScore] = useState<number>(7);
 
   useEffect(() => {
     if (player_id != null && apiState.status === "pending") {
       const bot1_params = `bot1_id=${bot1.id}${bot1.host == null ? '' : `&bot1_host=${bot1.host}`}`
       const bot2_params = `bot2_id=${bot2.id}${bot2.host == null ? '' : `&bot2_host=${bot2.host}`}`
-      fetch(`${import.meta.env.VITE_SERVER_DOMAIN}/api/match?player_id=${player_id}&${bot1_params}&${bot2_params}`, { method: "POST" })
+      fetch(`${import.meta.env.VITE_SERVER_DOMAIN}/api/match?player_id=${player_id}&winner_min_score=${winner_min_score}&${bot1_params}&${bot2_params}`, { method: "POST" })
         .then((res) => res.json())
         .then(({ match_id }) => {
           setApiState({ status: "success", match_id: match_id });
@@ -100,15 +99,18 @@ export const TestBotScreen: React.FC = () => {
         </Grid>
       </Grid>
       <Box sx={{ my: 2 }}>
+        Winner First To...
+        <Select
+          sx={{ mx: 1}}
+          value={winner_min_score}
+          onChange={({target}) => setWinnerMinScore(+target.value)}
+        >
+          {[1, 2, 3, 4, 5, 6, 7].map(value => <MenuItem key={value} value={value}>{value}</MenuItem>)}
+        </Select>
         <Button variant="contained" onClick={() => setApiState({ status: "pending" })}
+          sx={{ mx: 1}}
           disabled={apiState.status === "pending"}>
-            Start a Single Game!
-        </Button>
-      </Box>
-      <Box sx={{ my: 2 }}>
-        <Button variant="outlined" onClick={() => setApiState({ status: "pending" })}
-          disabled={apiState.status === "pending"}>
-            Start a Match (Best of 13!)
+            Start a Match!
         </Button>
       </Box>
     </Box>
