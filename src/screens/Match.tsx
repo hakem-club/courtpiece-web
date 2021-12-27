@@ -1,16 +1,45 @@
-import { Alert, Box, Button, Divider, IconButton, LinearProgress, Step, StepLabel, Stepper } from "@mui/material";
+import { Alert, Avatar, Badge, Box, Button, CircularProgress, Divider, IconButton, LinearProgress, Stack, Step, StepLabel, Stepper } from "@mui/material";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { PlayerIndex, TMatchData, TMatchID } from "../../common/types";
+import { PlayerIndex, TeamIndex, TGameID, TGameStatus, TMatchData, TMatchID } from "../../common/types";
 import CenterContainer from "../components/CenterContainer";
 import Player from "../components/Player";
 import useGameUpdate from "../SocketContext";
 import { useMatchApi } from "../useApi";
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { deepOrange } from "@mui/material/colors";
 
 interface RouteParams {
     matchId: TMatchID;
+}
+
+type TMatchGameProps = {
+    ix?: number,
+    game_id: TGameID,
+    wins: [number, number],
+    scoreline?: [number, number],
+    status?: TGameStatus,
+    winner_team?: TeamIndex,
+}
+
+export const MatchGame: React.FC<TMatchGameProps> = (props: TMatchGameProps) => {
+    const {ix, game_id, wins, scoreline, status, winner_team} = props;
+    return <Step key={ix ?? 'current'}>
+        <Stack direction="row" spacing={4} alignItems="center" sx={{ ml: -1 }}>
+            <Badge badgeContent={<IconButton sx={{top: "20px", right: "-5px", background: "white"}} aria-label="delete" size="small" href={`/game/${game_id}`} target="_blank">
+                <OpenInNewIcon fontSize="inherit" />
+            </IconButton>
+            }>
+                <Avatar>{ix == null ? <CircularProgress /> : ix + 1}</Avatar>
+            </Badge>
+            <Box>
+                <Player name="Team A" index={0 as PlayerIndex} score={wins[0]} highlighted={winner_team} />
+                {scoreline == null ? status : scoreline.join(' — ')}
+                <Player name="Team B" index={1 as PlayerIndex} score={wins[1]} highlighted={winner_team} />
+            </Box>
+        </Stack>
+    </Step>;
 }
 
 export const MatchScreen: React.FC = () => {
@@ -32,32 +61,8 @@ export const MatchScreen: React.FC = () => {
         <Box sx={{ p: 4 }}>
             {api.data == null ? null : <>
                 <Stepper activeStep={api.data.finished_games.length} orientation="vertical">
-                    {api.data.finished_games.map((game, ix) => <Step key={ix}>
-                        <StepLabel>
-                            <Player name="Team A" index={0 as PlayerIndex} score={game.wins[0]} highlighted={game.winner_team} />
-                            {game.scoreline.join(' — ')}
-                            <Player name="Team B" index={1 as PlayerIndex} score={game.wins[1]} highlighted={game.winner_team} />
-                            <Box sx={{ mx: 2 }} display="inline-block">
-                                Game #{ix + 1}
-                                <IconButton aria-label="delete" size="small" href={`/game/${game.id}`} target="_blank">
-                                    <OpenInNewIcon fontSize="inherit" />
-                                </IconButton>
-                            </Box>
-                        </StepLabel>
-                    </Step>)}
-                    {api.data.current_game == null ? null : <Step>
-                        <StepLabel>
-                            <Player name="Team A" index={0 as PlayerIndex} score={api.data.current_game.wins[0]} />
-                            {api.data.current_game.status}
-                            <Player name="Team B" index={1 as PlayerIndex} score={api.data.current_game.wins[1]} />
-                            <Box sx={{ mx: 2 }} display="inline-block">
-                                Game #{api.data.finished_games.length + 1}
-                                <IconButton aria-label="delete" size="small" href={`/game/${api.data.current_game.id}`} target="_blank">
-                                    <OpenInNewIcon fontSize="inherit" />
-                                </IconButton>
-                            </Box>
-                        </StepLabel>
-                    </Step>}
+                    {api.data.finished_games.map((game, ix) => <MatchGame ix={ix} game_id={game.id} wins={game.wins} scoreline={game.scoreline} winner_team={game.winner_team} />)}
+                    {api.data.current_game == null ? null : <MatchGame game_id={api.data.current_game.id} wins={api.data.current_game.wins} status={api.data.current_game.status} />}
                 </Stepper>
                 <Divider sx={{ my: 2 }} />
                 {api.data.current_game != null ? null : <>
