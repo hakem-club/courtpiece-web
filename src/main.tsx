@@ -8,7 +8,7 @@ import Player from "./components/Player";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Container fixed sx={{ px: 0 }}>
+    <Grid gridTemplateRows="auto 1fr auto" gridTemplateColumns="100%" minHeight="100vh" display="grid">
       <Grid container spacing={2} sx={{ p: 1, color: '#aaa', alignItems: 'center' }} className="app-header">
         <Grid item xs={12} md={6}>
           <Box sx={{ px: 1, py: 2 }}>
@@ -19,10 +19,10 @@ ReactDOM.render(
           <a target="_blank" href='https://hakem-club.github.io/'>Developer Hub</a>
         </Grid>
       </Grid>
-      <Box sx={{ boxShadow: '0 3px 10px rgb(0 0 0 / 5%)', backgroundColor: 'white' }}>
+      <Box>
         <App />
       </Box>
-      <Grid container spacing={2} sx={{ p: 1, color: '#aaa' }} className="app-footer">
+      <Grid container spacing={2} sx={{ px: 1, py: 2, color: '#aaa' }} className="app-footer">
         <Grid item xs={12} md={6}>
           open source client: <a href='https://github.com/hakem-club/courtpiece-web'>@hakem-club/courtpiece-web</a>
         </Grid>
@@ -30,7 +30,7 @@ ReactDOM.render(
         <a href='/test-bot'>Test Your Bot!</a>
         </Grid>
       </Grid>
-    </Container>
+    </Grid>
   </React.StrictMode>,
   document.getElementById("root")
 );
