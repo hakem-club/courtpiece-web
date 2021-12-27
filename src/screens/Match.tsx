@@ -8,7 +8,7 @@ import useGameUpdate from "../SocketContext";
 import { useMatchApi } from "../useApi";
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { deepOrange } from "@mui/material/colors";
+import { blue } from "@mui/material/colors";
 
 interface RouteParams {
     matchId: TMatchID;
@@ -31,7 +31,7 @@ export const MatchGame: React.FC<TMatchGameProps> = (props: TMatchGameProps) => 
                 <OpenInNewIcon fontSize="inherit" />
             </IconButton>
             }>
-                <Avatar>{ix == null ? <CircularProgress /> : ix + 1}</Avatar>
+                {ix == null ? <Avatar sx={{ bgcolor: blue[100] }}><CircularProgress /></Avatar> : <Avatar sx={{ bgcolor: blue[700] }}>{ix + 1}</Avatar>}
             </Badge>
             <Box>
                 <Player name="Team A" index={0 as PlayerIndex} score={wins[0]} highlighted={winner_team} />
