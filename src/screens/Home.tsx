@@ -1,4 +1,4 @@
-import { Badge, Box, Button, TextField } from "@mui/material";
+import { Badge, Box, Button, Grid, TextField } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useHistory } from "react-router";
@@ -50,8 +50,8 @@ export const HomeScreen: React.FC = () => {
   const invalid_form = !isNameValid(selectedName);
 
   return (
-    <CenterContainer>
-      <Box>
+    <Grid container spacing={2} sx={{ pt: 16 }}>
+      <Grid item>
         <Box>
           <TextField
             error={selectedName.length > 0 && invalid_form}
@@ -75,7 +75,7 @@ export const HomeScreen: React.FC = () => {
               disabled={apiState.status === "pending" || invalid_form}>Play against Bots!</Button>
           </Badge>
         </Box>)}
-      </Box>
-    </CenterContainer>
+      </Grid>
+    </Grid>
   );
 };

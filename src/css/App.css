@@ -2,6 +2,13 @@ body {
   background: #fafafa;
 }
 
+.app-container {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 100%;
+  min-height: 100vh;
+}
+
 .app-header a, .app-footer a {
   color: #666;
 }
