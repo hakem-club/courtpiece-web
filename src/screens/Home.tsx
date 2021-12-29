@@ -3,9 +3,10 @@ import { useCallback, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useHistory } from "react-router";
 import { isNameValid } from "../../common/utils";
-import CenterContainer from "../components/CenterContainer";
 import { usePlayer } from "../GameContext";
 import SmartToyIcon from '@mui/icons-material/SmartToy';
+import Card from "../components/Card";
+import { PlayingCard } from "../../common/types";
 
 export const HomeScreen: React.FC = () => {
   const player_id = usePlayer();
@@ -48,6 +49,14 @@ export const HomeScreen: React.FC = () => {
   }, [apiState.status]);
 
   const invalid_form = !isNameValid(selectedName);
+
+  const [card, setCard] = useState<PlayingCard>(0);
+  const refreshCard = () => setCard(Math.floor(Math.random() * 52) as PlayingCard);
+
+  useEffect(() => {
+    const intervalId = setInterval(refreshCard, 1000);
+    return () => clearInterval(intervalId);
+  }, []);
 
   return (
     <Stack>
@@ -93,7 +102,13 @@ export const HomeScreen: React.FC = () => {
           </Paper>
         </Grid>
         <Grid item>
-          <Paper>
+          <Paper sx={{ position: 'relative' }}>
+            <Box
+              sx={{ transform: 'rotate(-24deg) translate(86px, 191px) scale(1.84, 1.85)', filter: 'grayscale(0.5)', top: 0, position: 'absolute' }}
+              onClick={refreshCard}
+              >
+              <Card card={card} />
+            </Box>
             <img src="/graphics/home.svg" alt="Hakem.club" style={{}} />
           </Paper>
         </Grid>
