@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import io from "socket.io-client";
 import { SOCKET_IO_UPDATE_EVENT } from "../common/constants";
 
@@ -12,6 +12,7 @@ const useGameUpdate = (game_id: string) => {
 
     // listen to update events
     socket.on(SOCKET_IO_UPDATE_EVENT, () => setUpdateToken());
+    socket.on('api_stat', console.log);
 
     // Destroys the socket reference when the connection is closed
     return () => {
