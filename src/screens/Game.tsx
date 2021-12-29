@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { GameProvider, useGame, usePlayer } from "../GameContext";
 import { PlayerIndex, PlayingCard, PlayingCardSuite, TGameData, TGameID } from "../../common/types";
@@ -42,6 +42,12 @@ const InPlayView: React.FC = () => {
 
   return (
     <>
+      {game.match_id == null ? null : <Alert severity="warning"
+        action={<Button color="inherit" size="small" to={`/match/${game.match_id}`} component={Link} endIcon={<ChevronRightIcon />}>
+          Go to Match
+        </Button>}>
+        This game is part of a match.
+      </Alert>}
       {game.your_index >= 0 ? <Box>
         <Alert severity="info">
           Welcome
@@ -277,7 +283,9 @@ export const GameScreen: React.FC = () => {
   return (<>
     <LinearProgress sx={{ opacity: api.pending ? 1 : 0, mb: -0.5 }} />
     {api.data == null ? null : <GameProvider value={{ ...api.data, game_id: gameId }}>
-      <GameView />
+      <Box sx={{py:2}}>
+        <GameView />
+      </Box>
     </GameProvider>}
   </>);
 };

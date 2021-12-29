@@ -1,6 +1,6 @@
 import { Alert, Avatar, Badge, Box, Button, CircularProgress, Divider, IconButton, LinearProgress, Stack, Step, StepLabel, Stepper } from "@mui/material";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { PlayerIndex, TeamIndex, TGameID, TGameStatus, TMatchData, TMatchID } from "../../common/types";
 import CenterContainer from "../components/CenterContainer";
 import Player from "../components/Player";
@@ -27,7 +27,7 @@ export const MatchGame: React.FC<TMatchGameProps> = (props: TMatchGameProps) => 
     const { ix, game_id, wins, scoreline, status, winner_team } = props;
     return <Step key={ix ?? 'current'}>
         <Stack direction="row" spacing={4} alignItems="center" sx={{ ml: -1 }}>
-            <Badge badgeContent={<IconButton sx={{ top: "20px", right: "-5px", background: "white" }} aria-label="delete" size="small" href={`/game/${game_id}`} target="_blank">
+            <Badge badgeContent={<IconButton sx={{ top: "20px", right: "-5px", background: "white" }} aria-label="delete" size="small" to={`/game/${game_id}`} component={Link}>
                 <OpenInNewIcon fontSize="inherit" />
             </IconButton>
             }>

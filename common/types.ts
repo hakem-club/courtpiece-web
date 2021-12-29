@@ -121,6 +121,7 @@ export type TGameData = {
 
   // link to next game
   next_game_id: TGameID | null,
+  match_id: TMatchID | null,
 };
 
 export type TTrick = {
